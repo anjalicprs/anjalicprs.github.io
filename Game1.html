@@ -1,0 +1,143 @@
+<html>
+<head>
+<script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script>
+<script language="javascript" src="javascripts/jquery.hotkeys.js" type="text/javascript"></script>
+<script language="javascript" src="javascripts/key_status.js" type="text/javascript"></script>
+<script language="javascript" src="javascripts/sound.js" type="text/javascript"></script>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+<div id="z"> <div id="x"></div><div id="y"></div></div>
+<script>
+var X=2;
+var Y=100;
+var X2=296;
+var Y2=30;
+var x=148;
+var y=70;
+var FPS = 30;
+var t=1;
+var i=0;
+var j=0;
+var timer = setInterval(function(){
+       draw();
+	   update();},1000/FPS);
+var canvas=document.getElementById('myCanvas');
+var context=canvas.getContext('2d');
+context.fillStyle = "#000";
+ context.fillStyle = 'White';
+ function update()
+ {
+      
+     x+=t;
+	 if((x>=X2&&x<X2+5)&&(y>=Y2&&y<=Y2+20))
+	 {
+	     x=x-6;
+		 t=-t;
+		  Y2= Math.floor((Math.random() * 100) + 1);
+		 Sound.play("explosion");
+	 }
+	 
+	 if((x>=X&&x<X+5)&&(y>=Y&&y<=Y+20))
+	 {
+	     x=x+6;
+		  t=-t;
+		  Y= Math.floor((Math.random() * 120) + 1);
+		  Sound.play("explosion");
+	 }
+	  document.getElementById("x").innerHTML="Points of Player A = "+i;
+	 if(x==0)
+	 {
+	    i++;
+		  Sound.play("shoot");
+		 document.getElementById("x").innerHTML="Points of Player A = "+i;
+		 x=148;
+		 t=-t;
+	 }
+	  document.getElementById("y").innerHTML="Points of Player B = "+j;
+	 if(x>300)
+	 { 
+	     j++;
+		 Sound.play("shoot");
+		 document.getElementById("y").innerHTML="Points of Player B = "+j;
+		 x=148
+		 t=-t;
+	 }
+	 if(x<148)
+	 {
+	    if(keydown.up)
+	    {
+	       Y=Y-1;
+	    }
+	 
+	    if(keydown.down)
+	   {
+	        Y=Y+1;
+	   }
+	 }
+	 if(x>148)
+	 {
+	    if(keydown.up)
+	    {
+	       Y2=Y2-1;
+	    }
+	 
+	    if(keydown.down)
+	   {
+	        Y2=Y2+1;
+	   }
+	 }
+	 if(i==10)
+ {
+     document.getElementById("z").innerHTML="GAME OVER Player A is Winner";
+	 clearInterval(timer);
+ }
+ if(j==10)
+ {
+     document.getElementById("z").innerHTML="GAME OVER Player B is Winner";
+	   clearInterval(timer);
+ }
+ }
+ 
+function draw()
+{
+   context.clearRect(0, 0,800, 500);
+   context.fillStyle = "#000";
+    context.fillStyle = 'White';
+    context.fillRect(x,y,7,7);
+	context.fillRect(X,Y,5,20);
+    context.fillRect(X2,Y2,5,20);
+}
+
+</script>
+<style>
+#mycanvas{
+    border:1px solid #000000;
+     height:500px;
+	width:800px;
+	background-color:black;
+	margin-top:100px;
+	margin-left:300px;
+}
+#x{
+   color:white;
+   font-size:25;
+   background-color:green;
+   height:50px;
+   width:250px;
+   margin-left:20px;
+   margin-top:2px;
+}
+#y{
+   color:white;
+   font-size:25;
+   background-color:green;
+    height:50px;
+   width:250px;
+   margin-top:-50px;
+   margin-left:500px;
+}
+</style>
+
+</body>
+</head>
