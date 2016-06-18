@@ -16,7 +16,8 @@ var Y2=30;
 var x=148;
 var y=70;
 var FPS = 30;
-var t=4;
+var t=3;
+var f=0.25;
 var i=0;
 var j=0;
 var timer = setInterval(function(){
@@ -30,6 +31,7 @@ context.fillStyle = "#000";
  {
       
      x+=t;
+	 y+=f;
 	 if((x>=X2&&x<X2+5)&&(y>=Y2&&y<=Y2+20))
 	 {
 	     x=x-6;
@@ -37,22 +39,30 @@ context.fillStyle = "#000";
 		  Y2= Math.floor((Math.random() * 100) + 1);
 		 Sound.play("explosion");
 	 }
+	 if(y>148||y<0)
+	 {
+		 f=-f;
+		  Sound.play("shoot");
+	 }
 	 
 	 if((x>=X&&x<X+5)&&(y>=Y&&y<=Y+20))
 	 {
 	     x=x+6;
 		  t=-t;
+		  
 		  Y= Math.floor((Math.random() * 120) + 1);
 		  Sound.play("explosion");
 	 }
 	  document.getElementById("x").innerHTML="Points of Player A = "+i;
-	 if(x<=2)
+	 if(x<=0)
 	 {
 	    i++;
 		  Sound.play("shoot");
 		 document.getElementById("x").innerHTML="Points of Player A = "+i;
 		 x=148;
+		 y=70;
 		 t=-t;
+		
 	 }
 	  document.getElementById("y").innerHTML="Points of Player B = "+j;
 	 if(x>300)
@@ -60,8 +70,10 @@ context.fillStyle = "#000";
 	     j++;
 		 Sound.play("shoot");
 		 document.getElementById("y").innerHTML="Points of Player B = "+j;
-		 x=148
+		 x=148;
+		 y=70;
 		 t=-t;
+		
 	 }
 	 if(x<148)
 	 {
@@ -87,18 +99,18 @@ context.fillStyle = "#000";
 	        Y2=Y2+1;
 	   }
 	 }
-	  if(i==10)
+	 if(i==10)
  {
-     document.getElementById("y").innerHTML="Game Over Player A is Winner";
+     document.getElementById("z").innerHTML="GAME OVER Player A is Winner";
 	 clearInterval(timer);
  }
  if(j==10)
  {
-     document.getElementById("x").innerHTML="Game Over Player B is Winner";
+     document.getElementById("z").innerHTML="GAME OVER Player B is Winner";
 	   clearInterval(timer);
  }
  }
-
+ 
 function draw()
 {
    context.clearRect(0, 0,800, 500);
